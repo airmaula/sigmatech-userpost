@@ -38,9 +38,11 @@ export default {
         this.user = response;
         this.user.posts = []
         this.getPosts();
+      }).catch(err => {
+        alert('REST API Endpoint ' + err.request.statusText)
       });
     },
-    getPosts() { 
+    getPosts() {
       this.$axios.$get('https://gorest.co.in/public/v2/users/' + this.id + '/posts', {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.security.token,
@@ -48,6 +50,8 @@ export default {
       }).then(response => {
         this.posts = response;
         console.log(this.posts)
+      }).catch(err => {
+        alert('REST API Endpoint ' + err.request.statusText)
       });
     }
   },

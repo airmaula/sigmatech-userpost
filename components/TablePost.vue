@@ -18,7 +18,7 @@
         </template>
 
         <template #cell(action)="data">
-          <b-button variant="outline-danger" squared small>Delete</b-button>
+          <b-button variant="outline-danger" squared small @click="confirmDelete(data.item)">Delete</b-button>
         </template>
 
         <template #cell(id)="data">
@@ -35,7 +35,7 @@
       ></b-pagination>
 
 
-      <b-modal id="modal-1" title="New Post" hide-footer>
+    <b-modal id="modal-1" title="New Post" hide-footer>
 
         <form ref="form" @submit.prevent="storePost">
           <b-form-group
@@ -72,6 +72,14 @@
 
       </b-modal>
 
+    <b-modal id="modal-2" title="Delete Post" hide-footer>
+
+      <p class="mb-3">Do you want to delete this post?</p>
+      <b-button @click="deletePost" variant="outline-danger" class="mr-2" squared small>Yes, delete now</b-button>
+      <b-button @click="$bvModal.hide('modal-2')" variant="danger" squared small>Cancel</b-button>
+
+    </b-modal>
+
 
   </b-container>
 </div>
@@ -105,6 +113,7 @@ export default {
       },
       'action',
     ],
+    postSelected: {}
   }),
   computed: {
     rows() {
@@ -123,13 +132,31 @@ export default {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.security.token,
         }
-      }).then(response => {
+      }).then(() => {
         this.$emit('getPosts', {});
         this.title = '';
         this.body = '';
         this.$bvModal.hide('modal-1')
+      }).catch(err => {
+        alert('REST API Endpoint ' + err.request.statusText)
       });
 
+    },
+    confirmDelete(item) {
+      this.postSelected = item;
+      this.$bvModal.show('modal-2');
+    },
+    deletePost() {
+      this.$axios.$delete('https://gorest.co.in/public/v2/users/' + this.user.id + '/posts/' + this.postSelected.id,{
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.security.token,
+        }
+      }).then(() => {
+        this.$emit('getPosts', {});
+        this.$bvModal.hide('modal-2')
+      }).catch(err => {
+        alert('REST API Endpoint ' + err.request.statusText)
+      });
     }
   },
   created() {
