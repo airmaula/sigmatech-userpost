@@ -53,7 +53,7 @@ export default {
   name: "userId",
   data: () => ({
     id: '',
-    user: { },
+    user: { name: 'loading..', gender: 'loading..', email: 'loading..' },
     posts: [],
     notFound: false,
   }),

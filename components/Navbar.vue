@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+  <div class="mb-5">
+    <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top">
       <b-container fluid="sm">
         <b-navbar-brand href="#" @click="toHomepage">User Post App</b-navbar-brand>
 

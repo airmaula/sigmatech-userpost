@@ -14,7 +14,8 @@
             <td>:</td>
             <td>
               <b-badge pill variant="dark" v-if="user.gender === 'male'">Male</b-badge>
-              <b-badge pill variant="light" v-else>Female</b-badge>
+              <b-badge pill variant="light" v-else-if="user.gender === 'female'">Female</b-badge>
+              <span v-else>{{ user.gender }}</span>
             </td>
           </tr>
           <tr>
