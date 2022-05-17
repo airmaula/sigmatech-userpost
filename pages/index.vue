@@ -9,9 +9,9 @@
     <hero title="User Lists" />
     <!-- E: Hero -->
 
-    <!-- S: Table Content -->
-    <table-content />
-    <!-- E: Table Content -->
+    <!-- S: Table User -->
+    <table-user />
+    <!-- E: Table User -->
 
   </div>
 </template>

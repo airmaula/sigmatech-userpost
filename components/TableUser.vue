@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-container fluid="sm">
-    <b-table responsive="sm" striped hover :busy="isBusy" :items="items" :fields="fields">
+    <b-table responsive="sm" striped hover :busy="isBusy" :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage" id="table-user">
 
       <template #table-busy>
         <div class="text-center text-danger my-2">
@@ -16,17 +16,30 @@
         <b-button variant="outline-danger" squared small>Delete</b-button>
       </template>
 
+      <template #cell(id)="data">
+        #{{data.item.id}}
+      </template>
+
     </b-table>
+
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="table-user"
+    ></b-pagination>
+
   </b-container>
 </div>
 </template>
 
 <script type="ts">
 export default {
-  name: "TableContent",
+  name: "TableUser",
   data: () => ({
     isBusy: false,
-    // fields: ['id', 'name', 'email', 'gender', 'status'],
+    perPage: 10,
+    currentPage: 1,
     fields: [
       {
         key: 'id',
@@ -57,10 +70,19 @@ export default {
     ],
     items: []
   }),
+  computed: {
+    rows() {
+      return this.items.length
+    }
+  },
   methods: {
     getData() {
       this.isBusy = true;
-      this.$axios.$get('https://gorest.co.in/public/v2/users').then(response => {
+      this.$axios.$get('https://gorest.co.in/public/v2/users', {
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.security.token,
+        }
+      }).then(response => {
         this.items = response;
         this.isBusy = false;
       });
