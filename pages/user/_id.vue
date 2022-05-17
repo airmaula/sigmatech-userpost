@@ -14,7 +14,7 @@
     <!-- E: Detail User -->
 
     <!-- S: Table Post -->
-    <table-post :items="posts"/>
+    <table-post :items="posts" :user="user" @getPosts="getUser()"/>
     <!-- E: Table Post -->
 
   </div>
@@ -26,7 +26,7 @@ export default {
   data: () => ({
     id: '',
     user: { },
-    posts: []
+    posts: [],
   }),
   methods: {
     getUser() {
@@ -40,13 +40,14 @@ export default {
         this.getPosts();
       });
     },
-    getPosts() {
+    getPosts() { 
       this.$axios.$get('https://gorest.co.in/public/v2/users/' + this.id + '/posts', {
         headers: {
           'Authorization': 'Bearer ' + this.$store.state.security.token,
         }
       }).then(response => {
         this.posts = response;
+        console.log(this.posts)
       });
     }
   },

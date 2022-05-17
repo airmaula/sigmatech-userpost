@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-container fluid="sm">
-        <b-navbar-brand href="#">Daftar Pengguna</b-navbar-brand>
+        <b-navbar-brand href="#" @click="toHomepage">Daftar Pengguna</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -16,7 +16,12 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    toHomepage() {
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 
