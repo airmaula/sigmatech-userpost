@@ -1,7 +1,9 @@
 <template>
 <div>
   <b-container fluid="sm">
-    <b-table responsive="sm" striped hover :busy="isBusy" :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage" id="table-user">
+    <b-table responsive="sm" striped hover :busy="isBusy" :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage" id="table-user" caption-top>
+
+      <template #table-caption>List Posts</template>
 
       <template #table-busy>
         <div class="text-center text-danger my-2">
@@ -11,8 +13,6 @@
       </template>
 
       <template #cell(action)="data">
-        <b-button variant="info" squared small @click.prevent="viewUser(data.item)">View</b-button>
-        <b-button variant="outline-warning" squared small>Update</b-button>
         <b-button variant="outline-danger" squared small>Delete</b-button>
       </template>
 
