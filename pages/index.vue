@@ -5,13 +5,23 @@
     <navbar />
     <!-- E: Navbar -->
 
-    <!-- S: Hero -->
-    <hero title="Daftar Pengguna" />
-    <!-- E: Hero -->
+    <!-- S: Wrap Content -->
+    <div class="wrap-content">
 
-    <!-- S: Table User -->
-    <table-user />
-    <!-- E: Table User -->
+      <!-- S: Hero -->
+      <hero title="Daftar Pengguna" />
+      <!-- E: Hero -->
+
+      <!-- S: Table User -->
+      <table-user />
+      <!-- E: Table User -->
+
+    </div>
+    <!-- E: Wrap Content -->
+
+    <!-- S: Footer -->
+    <foot />
+    <!-- E: Footer -->
 
   </div>
 </template>
@@ -28,5 +38,8 @@ export default Vue.extend({
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 * {
   font-family: 'Rubik', sans-serif;
+}
+.wrap-content {
+  min-height: 100vh;
 }
 </style>

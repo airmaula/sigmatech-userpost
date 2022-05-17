@@ -5,27 +5,44 @@
     <navbar />
     <!-- E: Navbar -->
 
-    <!-- S: Hero -->
-    <hero title="Lihat Pengguna" />
-    <!-- E: Hero -->
+    <!-- S: Wrap Content -->
+    <div class="wrap-content">
 
-    <div v-if="notFound">
+      <!-- S: Hero -->
+      <hero title="Lihat Pengguna" />
+      <!-- E: Hero -->
+
+      <!-- S: User Not Found -->
+      <div v-if="notFound">
+
         <b-container fluid="sm">
           <p>User not found</p>
-          <b-button type="submit" variant="outline-primary" @click.prevent="$router.push('/')" squared small>Back to home</b-button>
+          <b-button type="submit" variant="primary" @click.prevent="$router.push('/')" squared small>Back to home</b-button>
         </b-container>
+
+      </div>
+      <!-- E: User Not Found -->
+
+      <!-- S: User Found -->
+      <div v-else>
+
+        <!-- S: Detail User -->
+        <detail-user :user="user"/>
+        <!-- E: Detail User -->
+
+        <!-- S: Table Post -->
+        <table-post :items="posts" :user="user" @getPosts="getUser()"/>
+        <!-- E: Table Post -->
+
+      </div>
+      <!-- E: User Found -->
+
     </div>
+    <!-- E: Wrap Content -->
 
-    <div v-else>
-
-      <!-- S: Detail User -->
-      <detail-user :user="user"/>
-      <!-- E: Detail User -->
-
-      <!-- S: Table Post -->
-      <table-post :items="posts" :user="user" @getPosts="getUser()"/>
-      <!-- E: Table Post -->
-    </div>
+    <!-- S: Footer -->
+    <foot />
+    <!-- E: Footer -->
 
 
   </div>
@@ -90,5 +107,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 * {
   font-family: 'Rubik', sans-serif;
+}
+.wrap-content {
+  min-height: 100vh;
 }
 </style>
