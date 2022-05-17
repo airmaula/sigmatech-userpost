@@ -6,14 +6,14 @@
         <b-button variant="outline-primary" squared small v-b-modal.modal-1>Buat Post</b-button>
       </div>
 
-      <b-table responsive="sm" striped hover :busy="isBusy" :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage" id="table-user" caption-top>
+      <b-table responsive="sm" striped hover :busy="!loaded" :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage" id="table-post" caption-top>
 
         <template #table-caption>Daftar Post</template>
 
         <template #table-busy>
           <div class="text-center text-danger my-2">
             <b-spinner class="align-middle"></b-spinner>
-            <strong>Loading...</strong>
+            <strong>Memuat data...</strong>
           </div>
         </template>
 
@@ -27,21 +27,23 @@
 
       </b-table>
 
-      <div v-if="items.length > 0">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="table-user"
-          align="right"
-          first-text="First"
-          prev-text="Prev"
-          next-text="Next"
-          last-text="Last"
-        ></b-pagination>
-      </div>
-      <div v-else>
-        <p class="text-muted text-center">Tidak ada post. <a href="#" v-b-modal.modal-1>Buat Post</a></p>
+      <div v-if="loaded">
+        <div v-if="items.length > 0">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="table-user"
+            align="right"
+            first-text="First"
+            prev-text="Prev"
+            next-text="Next"
+            last-text="Last"
+          ></b-pagination>
+        </div>
+        <div v-else>
+          <p class="text-muted text-center">Tidak ada post. <a href="#" v-b-modal.modal-1>Buat Post</a></p>
+        </div>
       </div>
 
 
@@ -113,7 +115,7 @@
 <script type="ts">
 export default {
   name: "TableUser",
-  props: ['items', 'user'],
+  props: ['items', 'user', 'loaded'],
   data: () => ({
     title: '',
     body: '',

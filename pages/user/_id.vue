@@ -31,7 +31,7 @@
         <!-- E: Detail User -->
 
         <!-- S: Table Post -->
-        <table-post :items="posts" :user="user" @getPosts="getUser()"/>
+        <table-post :items="posts" :user="user" @getPosts="getUser()" :loaded="loaded"/>
         <!-- E: Table Post -->
 
       </div>
@@ -56,6 +56,7 @@ export default {
     user: { name: 'loading..', gender: 'loading..', email: 'loading..' },
     posts: [],
     notFound: false,
+    loaded: false,
   }),
   methods: {
     getUser() {
@@ -84,7 +85,7 @@ export default {
         }
       }).then(response => {
         this.posts = response;
-        console.log(this.posts)
+        this.loaded = true;
       }).catch(err => {
         this.$bvToast.toast('REST API Endpoint ' + err.request.statusText, {
           title: 'There are something error',
@@ -93,6 +94,7 @@ export default {
           toaster: 'b-toaster-top-full'
         })
         this.notFound = true;
+        this.loaded = true;
       });
     }
   },
