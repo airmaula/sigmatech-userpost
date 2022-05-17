@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-container fluid="sm">
-        <b-navbar-brand href="#" @click="toHomepage">Daftar Pengguna</b-navbar-brand>
+        <b-navbar-brand href="#" @click="toHomepage">User Post App</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

@@ -12,7 +12,10 @@
           <tr>
             <td>Gender</td>
             <td>:</td>
-            <td>{{ user.gender }}</td>
+            <td>
+              <b-badge pill variant="dark" v-if="user.gender === 'male'">Male</b-badge>
+              <b-badge pill variant="light" v-else>Female</b-badge>
+            </td>
           </tr>
           <tr>
             <td>Email</td>

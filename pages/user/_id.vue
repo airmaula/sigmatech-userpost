@@ -9,13 +9,24 @@
     <hero title="Lihat Pengguna" />
     <!-- E: Hero -->
 
-    <!-- S: Detail User -->
-    <detail-user :user="user"/>
-    <!-- E: Detail User -->
+    <div v-if="notFound">
+        <b-container fluid="sm">
+          <p>User not found</p>
+          <b-button type="submit" variant="outline-primary" @click.prevent="$router.push('/')" squared small>Back to home</b-button>
+        </b-container>
+    </div>
 
-    <!-- S: Table Post -->
-    <table-post :items="posts" :user="user" @getPosts="getUser()"/>
-    <!-- E: Table Post -->
+    <div v-else>
+
+      <!-- S: Detail User -->
+      <detail-user :user="user"/>
+      <!-- E: Detail User -->
+
+      <!-- S: Table Post -->
+      <table-post :items="posts" :user="user" @getPosts="getUser()"/>
+      <!-- E: Table Post -->
+    </div>
+
 
   </div>
 </template>
@@ -27,6 +38,7 @@ export default {
     id: '',
     user: { },
     posts: [],
+    notFound: false,
   }),
   methods: {
     getUser() {
@@ -39,7 +51,13 @@ export default {
         this.user.posts = []
         this.getPosts();
       }).catch(err => {
-        alert('REST API Endpoint ' + err.request.statusText)
+        this.$bvToast.toast('REST API Endpoint ' + err.request.statusText, {
+          title: 'There are something error',
+          variant: 'danger',
+          solid: true,
+          toaster: 'b-toaster-top-full'
+        })
+        this.notFound = true;
       });
     },
     getPosts() {
@@ -51,7 +69,13 @@ export default {
         this.posts = response;
         console.log(this.posts)
       }).catch(err => {
-        alert('REST API Endpoint ' + err.request.statusText)
+        this.$bvToast.toast('REST API Endpoint ' + err.request.statusText, {
+          title: 'There are something error',
+          variant: 'danger',
+          solid: true,
+          toaster: 'b-toaster-top-full'
+        })
+        this.notFound = true;
       });
     }
   },
@@ -62,6 +86,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+* {
+  font-family: 'Rubik', sans-serif;
+}
 </style>
